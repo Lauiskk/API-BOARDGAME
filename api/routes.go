@@ -18,5 +18,7 @@ func RegisterRoutes(app *fiber.App, handlerGames *handler.HandlerGames, handlerC
 
 	api.Get("/rentals", handleRentals.GetAllRentals)
 	api.Post("/rentals", handleRentals.CreateRental)
+	api.Post("/rentals/:id/return", handleRentals.FinalizeRental)
+	api.Delete("/rentals/:id", handleRentals.DeleteRental)
 
 }
