@@ -11,24 +11,26 @@ type Game struct {
 	Name  string `json:"name"`
 	Image string `json:"image"`
 	Stock uint   `json:"stockTotal"`
-	Price uint   `json:"totalPrice"`
+	Price uint   `json:"pricePerDay"`
 }
 
 type Customer struct {
 	gorm.Model
 	Name     string    `json:"name"`
-	Phone    uint      `json:"phone"`
-	CPF      uint      `json:"cpf"`
+	Phone    string    `json:"phone" validate:"min=10,max=11"`
+	CPF      string    `json:"cpf" validate:"len=11"`
 	Birthday time.Time `json:"birthday"`
 }
 
 type Rental struct {
 	gorm.Model
-	CustomerId    []Customer `gorm:"foreignKey:UserID"`
-	GameId        []Game     `gorm:"foreignKey:UserID"`
-	RentDate      time.Time  `json:"rentDate"`
-	DaysRented    uint       `json:"daysRented"`
-	ReturnDate    bool       `json:"returnDate"`
-	OriginalPrice uint       `json:"originalPrice"`
-	DelayFee      bool       `json:"delayFee"`
+	CustomerID    uint `gorm:"foreignKey:CustomerID"`
+	Customer      Customer
+	GameID        uint `gorm:"foreignKey:GameID"`
+	Game          Game
+	RentDate      string `json:"rentDate"`
+	DaysRented    uint   `json:"daysRented"`
+	ReturnDate    string `json:"returnDate"`
+	OriginalPrice uint   `json:"originalPrice"`
+	DelayFee      uint   `json:"delayFee"`
 }

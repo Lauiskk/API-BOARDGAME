@@ -62,7 +62,7 @@ func ConnectDatabase() *gorm.DB {
 		log.Fatalln(err)
 	}
 
-	DB.AutoMigrate(&model.Game{})
+	DB.AutoMigrate(&model.Game{}, &model.Customer{}, &model.Rental{})
 	return DB
 
 	// db.AutoMigrate(&"nome do package onde está o model do json"."nome da struct"{})
